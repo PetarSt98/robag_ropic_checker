@@ -8,10 +8,6 @@ then
 else
     echo "xvfb is installed."
 fi
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <path_to_bag_file>"
-    exit 1
-fi
 
 # Check if Docker image exists
 if [[ "$(docker images -q myimage 2> /dev/null)" == "" ]]; then
@@ -26,6 +22,4 @@ xhost +
 docker run -it --rm \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v $1:/data/input.bag \
     myimage
-
